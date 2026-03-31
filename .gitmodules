@@ -1,0 +1,19 @@
+[submodule "hardware_config/jetson-orin-librealsense"]
+	path = setup/hardware_config/jetson-orin-librealsense
+	url = https://github.com/jetsonhacks/jetson-orin-librealsense.git
+[submodule "hardware_config/jetson-orin-kernel-builder"]
+	path = setup/hardware_config/jetson-orin-kernel-builder
+	url = https://github.com/jetsonhacks/jetson-orin-kernel-builder.git
+[submodule "setup/libs/librealsense"]
+	path = setup/libs/librealsense
+	url = https://github.com/IntelRealSense/librealsense.git
+[submodule "ros2_ws/src/realsense-ros"]
+	path = ros2_ws/src/realsense-ros
+	url = https://github.com/IntelRealSense/realsense-ros.git
+	branch = ros2-development
+[submodule "setup/libs/rtabmap"]
+	path = setup/libs/rtabmap
+	url = https://github.com/introlab/rtabmap.git
+[submodule "ros2_ws/src/rtabmap_ros"]
+	path = ros2_ws/src/rtabmap_ros
+	url = https://github.com/introlab/rtabmap_ros.git
