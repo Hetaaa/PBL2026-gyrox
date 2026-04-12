@@ -1,0 +1,59 @@
+rtabmap:
+  ros__parameters:
+    map_frame_id: 'map'
+    frame_id: 'base_link'
+    odom_frame_id: 'odom'
+
+    subscribe_depth: false
+    subscribe_rgbd: true
+    subscribe_rgb: false
+    subscribe_odom_info: true
+
+    approx_sync: true
+    publish_tf: true
+
+    Vis/Gpu: "false"
+    Stereo/Gpu: "false"
+    Vis/CorNNType: "3"
+
+    Reg/Strategy: "2"
+    Vis/EstimationType: "0"
+    Icp/Strategy: "0"
+
+    Odom/GuessMotion: "true"
+    RGBD/UseIMU: "true"
+
+    # ORB pipeline to match OpenCV build without xfeatures2d.
+    Vis/FeatureType: "8"
+    Kp/DetectorStrategy: "8"
+    Kp/MaxFeatures: "500"
+
+    RGBD/LinearUpdate: "0.05"
+    RGBD/AngularUpdate: "0.03"
+
+    RGBD/OptimizeFromGraphEnd: "false"
+    Optimizer/Strategy: "1"
+
+    RGBD/OptimizeMaxError: "3.0"
+    RGBD/ProximityBySpace: "false"
+    RGBD/ProximityMaxGraphDepth: "20"
+
+    Mem/STMSize: "20"
+    Mem/UseOdomFeatures: "false"
+    Rtabmap/MemoryThr: "0"
+    Mem/RehearsalSimilarity: "0.65"
+
+    Vis/MinInliers: "20"
+    Vis/InlierDistance: "0.1"
+
+    Grid/Sensor: "1"
+    Grid/CellSize: "0.05"
+    Grid/MaxObstacleHeight: "1.5"
+    Grid/MaxGroundHeight: "0.1"
+    Grid/RangeMax: "4.0"
+    Grid/RangeMin: "0.3"
+    Grid/RayTracing: "true"
+    Grid/DepthDecimation: "2"
+
+    Rtabmap/DetectionRate: "4.0"
+    RGBD/NeighborLinkRefining: "false"

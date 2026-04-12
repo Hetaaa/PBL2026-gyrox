@@ -1,0 +1,36 @@
+stereo_odometry:
+  ros__parameters:
+    subscribe_imu: true
+    subscribe_odom_info: true
+    subscribe_rgbd: true
+    approx_sync: true
+
+    publish_tf: true
+    frame_id: "base_link"
+    odom_frame_id: "odom"
+
+    Vis/Gpu: "false"
+    Stereo/Gpu: "false"
+    Vis/CorNNType: "3"
+
+    Odom/Strategy: "1"
+    Odom/GuessMotion: "true"
+
+    Reg/Strategy: "2"
+    Vis/EstimationType: "0"
+
+    # libpointmatcher is not available in this build, so keep ICP disabled.
+    Icp/Strategy: "0"
+
+    # Use ORB-based frontend (no xfeatures2d dependency).
+    Vis/FeatureType: "8"
+    Kp/DetectorStrategy: "8"
+    Vis/MaxFeatures: "500"
+    Vis/MinInliers: "20"
+    Vis/InlierDistance: "0.1"
+
+    RGBD/LinearUpdate: "0.05"
+    RGBD/AngularUpdate: "0.03"
+    RGBD/UseIMU: "true"
+
+    Odom/FilteringStrategy: "1"

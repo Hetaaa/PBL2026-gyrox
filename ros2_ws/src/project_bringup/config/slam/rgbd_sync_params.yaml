@@ -1,0 +1,6 @@
+/**:
+  ros__parameters:
+    approx_sync: true
+    approx_sync_max_interval: 0.05
+    qos: 2
+    sync_queue_size: 30

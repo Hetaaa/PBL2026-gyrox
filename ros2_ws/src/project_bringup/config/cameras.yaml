@@ -1,0 +1,55 @@
+camera_defaults: &camera_defaults
+  depth_module.emitter_enabled: 0
+  depth_module.depth_profile: "848x480x15"
+  depth_module.infra_profile: "848x480x15"
+  rgb_camera.color_profile: "848x480x15"
+
+  enable_depth: true
+  enable_color: true
+  enable_infra1: true
+  enable_infra2: true
+  enable_infra: false
+  enable_gyro: true
+  enable_accel: true
+  pointcloud.enable: false
+  enable_sync: true
+  align_depth.enable: true
+
+  base_frame_id: "link"
+  publish_tf: true
+  tf_publish_rate: 0.0
+
+  initial_reset: true
+  reconnect_timeout: 6.0
+  wait_for_device_timeout: -1.0
+  diagnostics_period: 0.0
+  hold_back_imu_for_frames: false
+  unite_imu_method: 1
+  linear_accel_cov: 0.01
+  angular_velocity_cov: 0.01
+
+  depth_qos: "SENSOR_DATA"
+  color_qos: "SENSOR_DATA"
+  infra_qos: "SENSOR_DATA"
+  infra1_qos: "SENSOR_DATA"
+  infra2_qos: "SENSOR_DATA"
+  imu_qos: "SENSOR_DATA"
+
+filter_defaults: &filter_defaults
+  decimation_filter.enable: false
+  spatial_filter.enable: true
+  spatial_filter.magnitude: 2
+  spatial_filter.holes_fill: 2
+  temporal_filter.enable: true
+  temporal_filter.persistence_control: 1
+  hole_filling_filter.enable: false
+  disparity_filter.enable: false
+
+cameras:
+  camera1:
+    enabled: true
+    serial_number: "_213322070691"
+    device_type: "D435I"
+    ros__parameters:
+      <<: [*camera_defaults, *filter_defaults]
+      clip_distance: 6.0
