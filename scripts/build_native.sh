@@ -10,4 +10,4 @@ set -u
 
 cd "${WORKSPACE_DIR}/ros2_ws"
 
-colcon build --symlink-install --packages-select slam "$@"
+colcon build --symlink-install --packages-select slam robot_model "$@"

@@ -10,12 +10,18 @@
 
   <link name="base_link">
     <visual>
-      <origin xyz="0 0 0" rpy="0 0 0" />
+      <origin xyz="0 0 0" rpy="0 0 3.14159" />
       <geometry>
-        <cylinder radius="0.13" length="0.01"/>
+        <mesh filename="package://robot_model/meshes/model.stl" scale="0.005 0.005 0.005"/>
       </geometry>
       <material name="silver"/>
     </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 3.14159" />
+      <geometry>
+        <mesh filename="package://robot_model/meshes/model.stl" scale="0.005 0.005 0.005"/>
+      </geometry>
+    </collision>
   </link>
 
   <link name="camera1_link">
@@ -38,4 +44,6 @@
     <parent link="base_link" />
     <child link="camera1_link" />
   </joint>
+
+
 </robot>
