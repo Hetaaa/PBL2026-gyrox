@@ -12,7 +12,7 @@ from launch_ros.substitutions import FindPackageShare
 
 def launch_setup(context, *args, **kwargs):
     urdf_file = PathJoinSubstitution(
-        [FindPackageShare("slam"), "urdf", "phoenix.urdf"]
+        [FindPackageShare("project_bringup"), "urdf", "phoenix.urdf"]
     ).perform(context)
 
     if not os.path.exists(urdf_file):

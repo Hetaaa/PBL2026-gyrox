@@ -70,7 +70,7 @@ def generate_launch_description():
             DeclareLaunchArgument(
                 "camera_config",
                 default_value=PathJoinSubstitution(
-                    [FindPackageShare("slam"), "config", "cameras.yaml"]
+                    [FindPackageShare("slam_bringup"), "config", "cameras.yaml"]
                 ),
                 description="Path to the camera configuration YAML file",
             ),
@@ -78,7 +78,7 @@ def generate_launch_description():
                 "rgbd_sync_config",
                 default_value=PathJoinSubstitution(
                     [
-                        FindPackageShare("slam"),
+                        FindPackageShare("slam_bringup"),
                         "config",
                         "slam",
                         "rgbd_sync_params.yaml",
@@ -90,7 +90,7 @@ def generate_launch_description():
                 "rtabmap_config",
                 default_value=PathJoinSubstitution(
                     [
-                        FindPackageShare("slam"),
+                        FindPackageShare("slam_bringup"),
                         "config",
                         "slam",
                         "rtabmap_params.yaml",

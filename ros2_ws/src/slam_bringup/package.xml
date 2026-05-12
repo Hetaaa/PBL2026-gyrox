@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<package format="3">
+  <name>slam_bringup</name>
+  <version>0.1.0</version>
+  <description>Single-package bringup for one Intel RealSense D435i SLAM stack.</description>
+  <maintainer email="admin@phoenixslam.com">Phoenix Team</maintainer>
+  <license>Apache-2.0</license>
+
+  <buildtool_depend>ament_python</buildtool_depend>
+
+  <depend>launch</depend>
+  <depend>launch_ros</depend>
+  <depend>rclpy</depend>
+  <depend>geometry_msgs</depend>
+  <depend>nav_msgs</depend>
+  <depend>sensor_msgs</depend>
+  <depend>std_msgs</depend>
+  <depend>tf2_geometry_msgs</depend>
+  <depend>tf2_ros</depend>
+  <depend>robot_state_publisher</depend>
+
+  <exec_depend>python3-yaml</exec_depend>
+  <exec_depend>project_bringup</exec_depend>
+  <exec_depend>imu_filter_madgwick</exec_depend>
+  <exec_depend>realsense2_camera</exec_depend>
+  <exec_depend>rtabmap_odom</exec_depend>
+  <exec_depend>rtabmap_slam</exec_depend>
+  <exec_depend>rtabmap_sync</exec_depend>
+
+  <test_depend>ament_lint_auto</test_depend>
+  <test_depend>ament_lint_common</test_depend>
+
+  <export>
+    <build_type>ament_python</build_type>
+  </export>
+</package>

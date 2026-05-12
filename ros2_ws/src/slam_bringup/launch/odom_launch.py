@@ -34,7 +34,7 @@ def launch_setup(context, *args, **kwargs):
     imu_in_base_topic = f"/{camera_name}/camera/imu_in_base"
 
     imu_transformer_node = Node(
-        package="slam",
+        package="slam_bringup",
         executable="imu_transformer",
         name="imu_transformer",
         output="log",
@@ -99,7 +99,7 @@ def generate_launch_description():
             DeclareLaunchArgument(
                 "camera_config",
                 default_value=PathJoinSubstitution(
-                    [FindPackageShare("slam"), "config", "cameras.yaml"]
+                    [FindPackageShare("slam_bringup"), "config", "cameras.yaml"]
                 ),
                 description="Path to the camera configuration YAML file",
             ),
@@ -107,7 +107,7 @@ def generate_launch_description():
                 "madgwick_config",
                 default_value=PathJoinSubstitution(
                     [
-                        FindPackageShare("slam"),
+                        FindPackageShare("slam_bringup"),
                         "config",
                         "odom",
                         "madgwick_params.yaml",
@@ -119,7 +119,7 @@ def generate_launch_description():
                 "stereo_odometry_config",
                 default_value=PathJoinSubstitution(
                     [
-                        FindPackageShare("slam"),
+                        FindPackageShare("slam_bringup"),
                         "config",
                         "odom",
                         "stereo_odometry_params.yaml",

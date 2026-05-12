@@ -69,7 +69,7 @@ def generate_launch_description():
             DeclareLaunchArgument(
                 "config_file",
                 default_value=PathJoinSubstitution(
-                    [FindPackageShare("slam"), "config", "cameras.yaml"]
+                    [FindPackageShare("slam_bringup"), "config", "cameras.yaml"]
                 ),
                 description="Path to the camera configuration YAML file",
             ),

@@ -3,7 +3,7 @@ import os
 
 from setuptools import find_packages, setup
 
-package_name = "project_bringup"
+package_name = "slam_bringup"
 
 setup(
     name=package_name,
@@ -13,13 +13,19 @@ setup(
         ("share/ament_index/resource_index/packages", ["resource/" + package_name]),
         (os.path.join("share", package_name), ["package.xml"]),
         (os.path.join("share", package_name, "launch"), glob("launch/*.py")),
-        (os.path.join("share", package_name, "urdf"), glob("urdf/*")),
+        (os.path.join("share", package_name, "config"), glob("config/*.yaml")),
+        (os.path.join("share", package_name, "config", "odom"), glob("config/odom/*.yaml")),
+        (os.path.join("share", package_name, "config", "slam"), glob("config/slam/*.yaml")),
     ],
     install_requires=["setuptools"],
     zip_safe=True,
     maintainer="Phoenix Team",
     maintainer_email="admin@phoenixslam.com",
-    description="Main system bringup orchestrator with health checks for all subsystems",
+    description="Single-package bringup for one Intel RealSense D435i SLAM stack",
     license="Apache-2.0",
-    entry_points={},
+    entry_points={
+        "console_scripts": [
+            "imu_transformer = slam_bringup.imu_transformer:main",
+        ],
+    },
 )
