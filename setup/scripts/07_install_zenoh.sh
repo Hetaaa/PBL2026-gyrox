@@ -12,7 +12,7 @@ sudo apt update
 sudo apt install -y \
   "ros-${ROS_DISTRO}-rmw-zenoh-cpp" \
   "ros-${ROS_DISTRO}-cyclonedds" \
-  "ros-${ROS_DISTRO}-zenoh-bridge-dds"
+  "ros-${ROS_DISTRO}-zenoh-bridge-ros2dds"
 
 # Make sure ROS binaries are visible in this shell while validating install.
 if [[ -f "/opt/ros/${ROS_DISTRO}/setup.bash" ]]; then
