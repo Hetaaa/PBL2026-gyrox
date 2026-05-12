@@ -1,5 +1,7 @@
 rtabmap:
   ros__parameters:
+
+    # --- Konfiguracja bazowa ---
     map_frame_id: 'map'
     frame_id: 'base_link'
     odom_frame_id: 'odom'
@@ -12,48 +14,54 @@ rtabmap:
     approx_sync: true
     publish_tf: true
 
-    Vis/Gpu: "false"
-    Stereo/Gpu: "false"
-    Vis/CorNNType: "3"
+    # --- CUDA (WYMUSZENIE GPU - HARD FAIL jeśli brak) ---
+    Vis/Gpu: "true"
+    Stereo/Gpu: "true"
+    Vis/CorNNType: "3"          # GPU brute-force matcher (wymusza CUDA)
 
-    Reg/Strategy: "2"
-    Vis/EstimationType: "0"
-    Icp/Strategy: "0"
+    # --- ODOMETRIA (KLUCZOWE) ---
+    Reg/Strategy: "2"           # VisICP
+    Vis/EstimationType: "0"     # 3D-3D
+    Icp/Strategy: "1"           # point-to-plane
+    Icp/Iterations: "15"
 
     Odom/GuessMotion: "true"
     RGBD/UseIMU: "true"
 
-    # ORB pipeline to match OpenCV build without xfeatures2d.
-    Vis/FeatureType: "8"
-    Kp/DetectorStrategy: "8"
-    Kp/MaxFeatures: "500"
+    # --- FEATURE EXTRACTION (POPRAWIONE) ---
+    Vis/FeatureType: "6"        # ORB (stabilniejsze niż GFTT/BRIEF)
+    Kp/MaxFeatures: "1200"
 
+    # --- KEYFRAME CONTROL (DLA 1 m/s) ---
     RGBD/LinearUpdate: "0.05"
     RGBD/AngularUpdate: "0.03"
 
-    RGBD/OptimizeFromGraphEnd: "false"
+    # --- LOOP CLOSURE / MAPA ---
     Optimizer/Strategy: "1"
 
     RGBD/OptimizeMaxError: "3.0"
-    RGBD/ProximityBySpace: "false"
-    RGBD/ProximityMaxGraphDepth: "20"
+    RGBD/ProximityBySpace: "true"
+    RGBD/ProximityMaxGraphDepth: "100"
 
-    Mem/STMSize: "20"
-    Mem/UseOdomFeatures: "false"
-    Rtabmap/MemoryThr: "0"
+    # --- PAMIĘĆ (POPRAWIONE) ---
+    Mem/STMSize: "40"
     Mem/RehearsalSimilarity: "0.65"
 
+    # --- WIZJA (OUTDOOR STABILNOŚĆ) ---
     Vis/MinInliers: "20"
     Vis/InlierDistance: "0.1"
 
+    # --- GRID MAP (Nav2) ---
     Grid/Sensor: "1"
     Grid/CellSize: "0.05"
     Grid/MaxObstacleHeight: "1.5"
     Grid/MaxGroundHeight: "0.1"
+
     Grid/RangeMax: "4.0"
     Grid/RangeMin: "0.3"
+
     Grid/RayTracing: "true"
     Grid/DepthDecimation: "2"
 
-    Rtabmap/DetectionRate: "4.0"
-    RGBD/NeighborLinkRefining: "false"
+    # --- WYDAJNOŚĆ (POPRAWIONE) ---
+    Rtabmap/DetectionRate: "1.0"

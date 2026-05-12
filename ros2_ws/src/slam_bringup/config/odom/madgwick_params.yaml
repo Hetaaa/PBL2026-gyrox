@@ -1,9 +1,14 @@
 imu_filter_madgwick:
   ros__parameters:
-    use_mag: false
-    world_frame: "enu"
-    publish_tf: false
-    gain: 0.1
-    zeta: 0.0
-    orientation_stddev: 0.1
-    use_system_default_qos: true
+    # Magnetometer
+    use_mag: false                    # Don't use magnetometer (not available on RealSense)
+    
+    # Reference frame
+    world_frame: "enu"                # East-North-Up (ROS convention, Z=up)
+    publish_tf: false                 # Let EKF handle TF publishing
+    
+    # Tuning parameters
+    gain: 0.1                         # Gyroscope measurement gain (higher = trust gyro more)
+    zeta: 0.0                         # Gyroscope detuning gain
+    orientation_stddev: 0.1           # Bez tego EKF będzie miał trudności z konwergencją, zwłaszcza przy dynamicznych ruchach
+    use_system_default_qos: true      # Use ROS 2 sensor quality of service
