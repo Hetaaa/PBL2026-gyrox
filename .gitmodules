@@ -20,3 +20,6 @@
 [submodule "ros2_ws/src/robot_model"]
 	path = ros2_ws/src/robot_model
 	url = https://github.com/Hetaaa/Ros2-STL.git
+[submodule "ros2_ws/src/rplidar_ros"]
+	path = ros2_ws/src/rplidar_ros
+	url = https://github.com/Slamtec/rplidar_ros.git
