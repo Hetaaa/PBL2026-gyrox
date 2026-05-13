@@ -1,8 +1,8 @@
 import rclpy
 from rclpy.node import Node
 from sensor_msgs.msg import Range
-from std_msgs.msg import String
-import serial
+from std_msgs.msg import String, Header
+from serial import Serial
 
 
 class UltrasonicDriver(Node):
@@ -10,13 +10,13 @@ class UltrasonicDriver(Node):
         super().__init__('ultrasonic_driver')
 
         self.sensor_config = [
-            ('front_left', '/dev/serial/by-path/pci-0000:00:14.0-usb-0:1.1:1.0-port0', 'ultrasonic_front_left_link'),
-            ('front_right', '/dev/serial/by-path/pci-0000:00:14.0-usb-0:1.3:1.0-port0', 'ultrasonic_front_right_link'),
-            ('front_center', '/dev/serial/by-path/pci-0000:00:14.0-usb-0:1.2:1.0-port0',
+            ('front_left', '/dev/serial/by-path/platform-3610000.usb-usb-0:2.3.1:1.0-port0', 'ultrasonic_front_left_link'),
+            ('front_right', '/dev/serial/by-path/platform-3610000.usb-usb-0:2.3.3:1.0-port0', 'ultrasonic_front_right_link'),
+            ('front_center', '/dev/serial/by-path/platform-3610000.usb-usb-0:2.3.2:1.0-port0',
              'ultrasonic_front_center_link'),
-            ('side_left', '/dev/serial/by-path/pci-0000:00:14.0-usb-0:1.4.1:1.0-port0', 'ultrasonic_side_left_link'),
-            ('side_right', '/dev/serial/by-path/pci-0000:00:14.0-usb-0:1.4.4:1.0-port0', 'ultrasonic_side_right_link'),
-            ('back', '/dev/serial/by-path/pci-0000:00:14.0-usb-0:1.4.3:1.0-port0', 'ultrasonic_back_link')
+            ('side_left', '/dev/serial/by-path/platform-3610000.usb-usb-0:2.3.4.1:1.0-port0', 'ultrasonic_side_left_link'),
+            ('side_right', '/dev/serial/by-path/platform-3610000.usb-usb-0:2.3.4.4:1.0-port0', 'ultrasonic_side_right_link'),
+            ('back', '/dev/serial/by-path/platform-3610000.usb-usb-0:2.3.4.4:1.0-port0', 'ultrasonic_back_link')
         ]
 
         # KLUCZOWE: Inicjalizacja zmiennych pomocniczych
@@ -29,7 +29,7 @@ class UltrasonicDriver(Node):
         for name, path, frame in self.sensor_config:
             try:
                 # Timeout=0 dla odczytu nieblokującego
-                ser = serial.Serial(path, 9600, timeout=0)
+                ser = Serial(path, 9600, timeout=0)
                 ser.reset_input_buffer()
                 pub = self.create_publisher(Range, f'ultrasonic/{name}', 10)
                 self.sensors.append({'serial': ser, 'pub': pub, 'frame': frame, 'name': name})
@@ -40,11 +40,23 @@ class UltrasonicDriver(Node):
         # Subskrypcja stref od kolegów
         self.create_subscription(String, '/zones_info', self.lidar_status_callback, 10)
 
+        # Echo publisher dla health check
+        self.echo_pub = self.create_publisher(String, 'ultrasonic/echo', 10)
+
         # Timer 50Hz
         self.create_timer(0.02, self.timer_callback)
+        
+        # Timer dla echo heart-beat (1Hz)
+        self.create_timer(1.0, self.publish_echo)
 
     def lidar_status_callback(self, msg):
         self.current_zone = msg.data.strip()
+
+    def publish_echo(self):
+        """Publikuj echo dla health check"""
+        msg = String()
+        msg.data = "ultrasonic_collector_ready"
+        self.echo_pub.publish(msg)
 
     def timer_callback(self):
         if not self.sensors:

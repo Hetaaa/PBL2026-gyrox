@@ -73,7 +73,19 @@ def launch_setup(context, *args, **kwargs):
         output="screen",
     )
 
-    # Launch ultrasonic_driver monitor node
+    # Health check: wait for ultrasonic collector echo
+    wait_for_ultrasonic_ready = ExecuteProcess(
+        cmd=[
+            "ros2",
+            "topic",
+            "echo",
+            "--once",
+            "ultrasonic/echo",
+        ],
+        output="screen",
+    )
+
+    # Launch ultrasonic_driver monitor node (triggered after health check)
     ultrasonic_monitor_launch = Node(
         package="ultrasonic_driver",
         executable="monitor",
@@ -95,7 +107,15 @@ def launch_setup(context, *args, **kwargs):
         closest_element_launch,
         scan_filter_launch,
         ultrasonic_collector_launch,
-        ultrasonic_monitor_launch,
+        # Health check - czeka na echo od collectora
+        wait_for_ultrasonic_ready,
+        # Monitor startuje po sukcesie health checku
+        RegisterEventHandler(
+            event_handler=OnProcessExit(
+                target_action=wait_for_ultrasonic_ready,
+                on_exit=[ultrasonic_monitor_launch],
+            )
+        ),
         zones_manager_launch,
     ]
 
