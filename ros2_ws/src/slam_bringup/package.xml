@@ -20,7 +20,6 @@
   <depend>robot_state_publisher</depend>
 
   <exec_depend>python3-yaml</exec_depend>
-  <exec_depend>project_bringup</exec_depend>
   <exec_depend>imu_filter_madgwick</exec_depend>
   <exec_depend>realsense2_camera</exec_depend>
   <exec_depend>rtabmap_odom</exec_depend>

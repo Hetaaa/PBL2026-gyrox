@@ -89,25 +89,14 @@ def launch_setup(context, *args, **kwargs):
         output="screen",
     )
 
-    # Start peripherals after SLAM is ready
-    start_peripherals_after_slam = RegisterEventHandler(
-        OnProcessExit(
-            target_action=wait_for_slam_ready,
-            on_exit=[
-                rplidar_launch,
-                closest_element_launch,
-                scan_filter_launch,
-                ultrasonic_collector_launch,
-                ultrasonic_monitor_launch,
-                zones_manager_launch,
-            ],
-        )
-    )
-
     return [
         slam_bringup_launch,
-        wait_for_slam_ready,
-        start_peripherals_after_slam,
+        rplidar_launch,
+        closest_element_launch,
+        scan_filter_launch,
+        ultrasonic_collector_launch,
+        ultrasonic_monitor_launch,
+        zones_manager_launch,
     ]
 
 

@@ -9,12 +9,13 @@ source "/opt/ros/${ROS_DISTRO}/setup.bash"
 set -u
 
 required_pkgs=(
-  realsense2_camera
-  rtabmap_odom
-  rtabmap_slam
-  rtabmap_sync
-  imu_filter_madgwick
-  robot_state_publisher
+  slam_bringup
+  project_bringup
+  robot_model
+  scan_filter
+  ultrasonic_driver
+  zones_manager
+  closest_element_info
 )
 
 missing_pkgs=()
@@ -39,4 +40,4 @@ else
   exit 1
 fi
 
-exec ros2 launch slam project_launch.py "$@"
+exec ros2 launch project_bringup project_launch.py "$@"
