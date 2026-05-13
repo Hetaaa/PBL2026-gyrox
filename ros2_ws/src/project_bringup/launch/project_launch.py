@@ -11,6 +11,13 @@ from launch_ros.substitutions import FindPackageShare
 
 
 def launch_setup(context, *args, **kwargs):
+    # Resolve launch configurations to actual paths
+    camera_config = LaunchConfiguration("camera_config").perform(context)
+    madgwick_config = LaunchConfiguration("madgwick_config").perform(context)
+    stereo_odometry_config = LaunchConfiguration("stereo_odometry_config").perform(context)
+    rgbd_sync_config = LaunchConfiguration("rgbd_sync_config").perform(context)
+    rtabmap_config = LaunchConfiguration("rtabmap_config").perform(context)
+    
     # Include slam_bringup with health checks
     slam_bringup_launch = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
@@ -19,11 +26,11 @@ def launch_setup(context, *args, **kwargs):
             )
         ),
         launch_arguments={
-            "camera_config": LaunchConfiguration("camera_config"),
-            "madgwick_config": LaunchConfiguration("madgwick_config"),
-            "stereo_odometry_config": LaunchConfiguration("stereo_odometry_config"),
-            "rgbd_sync_config": LaunchConfiguration("rgbd_sync_config"),
-            "rtabmap_config": LaunchConfiguration("rtabmap_config"),
+            "camera_config": camera_config,
+            "madgwick_config": madgwick_config,
+            "stereo_odometry_config": stereo_odometry_config,
+            "rgbd_sync_config": rgbd_sync_config,
+            "rtabmap_config": rtabmap_config,
         }.items(),
     )
 

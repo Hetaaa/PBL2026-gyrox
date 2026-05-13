@@ -11,7 +11,7 @@ setup(
             ['resource/' + package_name]),
         ('share/' + package_name, ['package.xml']),
     ],
-    install_requires=['setuptools', 'pyserial'],
+    install_requires=['setuptools'],
     zip_safe=True,
     maintainer='kuba',
     maintainer_email='kuba@todo.todo',

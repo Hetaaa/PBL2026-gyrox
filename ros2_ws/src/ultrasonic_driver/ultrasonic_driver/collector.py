@@ -2,7 +2,7 @@ import rclpy
 from rclpy.node import Node
 from sensor_msgs.msg import Range
 from std_msgs.msg import String, Header
-from serial import Serial
+import serial
 
 
 class UltrasonicDriver(Node):
@@ -29,7 +29,7 @@ class UltrasonicDriver(Node):
         for name, path, frame in self.sensor_config:
             try:
                 # Timeout=0 dla odczytu nieblokującego
-                ser = Serial(path, 9600, timeout=0)
+                ser = serial.Serial(path, 9600, timeout=0)
                 ser.reset_input_buffer()
                 pub = self.create_publisher(Range, f'ultrasonic/{name}', 10)
                 self.sensors.append({'serial': ser, 'pub': pub, 'frame': frame, 'name': name})

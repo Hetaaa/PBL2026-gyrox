@@ -16,6 +16,8 @@ setup(
         (os.path.join("share", package_name, "config"), glob("config/*.yaml")),
         (os.path.join("share", package_name, "config", "odom"), glob("config/odom/*.yaml")),
         (os.path.join("share", package_name, "config", "slam"), glob("config/slam/*.yaml")),
+        (os.path.join("share", package_name, "urdf"), glob("urdf/*")),
+
     ],
     install_requires=["setuptools"],
     zip_safe=True,
