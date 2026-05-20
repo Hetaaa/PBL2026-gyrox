@@ -14,9 +14,11 @@
 [submodule "setup/libs/rtabmap"]
 	path = setup/libs/rtabmap
 	url = https://github.com/introlab/rtabmap.git
+	ignore = dirty
 [submodule "ros2_ws/src/rtabmap_ros"]
 	path = ros2_ws/src/rtabmap_ros
 	url = https://github.com/introlab/rtabmap_ros.git
+	ignore = dirty
 [submodule "ros2_ws/src/robot_model"]
 	path = ros2_ws/src/robot_model
 	url = https://github.com/Hetaaa/Ros2-STL.git
