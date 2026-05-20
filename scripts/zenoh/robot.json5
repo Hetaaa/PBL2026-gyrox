@@ -1,0 +1,81 @@
+/// ============================================================
+/// zenoh_robot.json5  –  Zenoh 1.9.0
+/// zenoh-bridge-ros2dds --config zenoh_robot.json5
+/// ============================================================
+
+{
+  mode: "router",
+
+  listen: {
+    endpoints: [
+      "tcp/0.0.0.0:7447"
+    ]
+  },
+
+  transport: {
+    unicast: {
+      lowlatency: false,
+      qos: {
+        enabled: true
+      },
+      /// Usuń ten blok jeśli bridge nie był zbudowany z --features transport_compression
+      compression: {
+        enabled: true
+      }
+    }
+  },
+
+  plugins: {
+    ros2dds: {
+
+      pub_max_frequencies: [
+        ".*/cloud_map=0.5",
+        ".*/grid_prob_map=0.5",
+        ".*/odom=10.0",
+        "^/scan$=5.0",
+        ".*/scan_filtered=5.0",
+        "^/tf$=20.0",
+        "^/tf_static=1.0",
+        ".*/zones_color_panel=2.0",
+        ".*/zones_info=2.0",
+        ".*/ultrasonic/.*=10.0"
+      ],
+
+      /// Whitelist – tylko te topiki są bridgowane, reszta blokowana domyślnie
+      allow: {
+        publishers: [
+          "^/tf$",
+          "^/tf_static$",
+          "^/scan$",
+          "^/scan_filtered$",
+          "^/rtabmap/cloud_map$",
+          "^/rtabmap/grid_prob_map$",
+          "^/rtabmap/odom$",
+          "^/odom$",
+          "^/zones_color_panel$",
+          "^/zones_info$",
+          "^/ultrasonic/.*$"
+        ],
+        /// Laptop read-only – żadne subskrypcje z zewnątrz nie przechodzą
+        subscribers:     [],
+        service_servers:  [],
+        service_clients:  [],
+        action_servers:   [],
+        action_clients:   []
+      },
+
+      reliable_routes_blocking: false,
+      domain: 0
+    }
+  },
+
+  scouting: {
+    multicast: {
+      enabled: false
+    },
+    gossip: {
+      enabled: true,
+      multihop: false
+    }
+  }
+}

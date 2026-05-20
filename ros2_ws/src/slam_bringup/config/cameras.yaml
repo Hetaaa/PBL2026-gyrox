@@ -80,7 +80,7 @@ cameras:
   # ---------------------------------------------------------------------------
   camera1:
     enabled: true
-    serial_number: "_346222071629"
+    serial_number: "_213322070691"
     device_type: "D435I"
     ros__parameters:
       <<: [*camera_defaults, *filter_defaults]

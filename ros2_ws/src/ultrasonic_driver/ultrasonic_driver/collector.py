@@ -10,13 +10,13 @@ class UltrasonicDriver(Node):
         super().__init__('ultrasonic_driver')
 
         self.sensor_config = [
-            ('front_left', '/dev/serial/by-path/platform-3610000.usb-usb-0:2.3.1:1.0-port0', 'ultrasonic_front_left_link'),
-            ('front_right', '/dev/serial/by-path/platform-3610000.usb-usb-0:2.3.3:1.0-port0', 'ultrasonic_front_right_link'),
-            ('front_center', '/dev/serial/by-path/platform-3610000.usb-usb-0:2.3.2:1.0-port0',
+            ('front_left', '/dev/serial/by-path/platform-3610000.usb-usb-0:2.4.1:1.0-port0', 'ultrasonic_front_left_link'),
+            ('front_right', '/dev/serial/by-path/platform-3610000.usb-usb-0:2.4.2:1.0-port0', 'ultrasonic_front_right_link'),
+            ('front_center', '/dev/serial/by-path/platform-3610000.usb-usb-0:2.4.3:1.0-port0',
              'ultrasonic_front_center_link'),
-            ('side_left', '/dev/serial/by-path/platform-3610000.usb-usb-0:2.3.4.1:1.0-port0', 'ultrasonic_side_left_link'),
-            ('side_right', '/dev/serial/by-path/platform-3610000.usb-usb-0:2.3.4.4:1.0-port0', 'ultrasonic_side_right_link'),
-            ('back', '/dev/serial/by-path/platform-3610000.usb-usb-0:2.3.4.4:1.0-port0', 'ultrasonic_back_link')
+            ('side_left', '/dev/serial/by-path/platform-3610000.usb-usb-0:2.4.4.1:1.0-port0', 'ultrasonic_side_left_link'),
+            ('side_right', '/dev/serial/by-path/platform-3610000.usb-usb-0:2.4.4.3:1.0-port0', 'ultrasonic_side_right_link'),
+            ('back', '/dev/serial/by-path/platform-3610000.usb-usb-0:2.4.4.4:1.0-port0', 'ultrasonic_back_link')
         ]
 
         # KLUCZOWE: Inicjalizacja zmiennych pomocniczych
