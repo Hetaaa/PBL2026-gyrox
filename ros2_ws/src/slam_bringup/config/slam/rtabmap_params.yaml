@@ -1,10 +1,8 @@
 rtabmap:
   ros__parameters:
-
-    # --- Konfiguracja bazowa ---
     map_frame_id: 'map'
     frame_id: 'base_link'
-    odom_frame_id: 'odom'
+    odom_frame_id: ''
 
     subscribe_depth: false
     subscribe_rgbd: true
@@ -14,54 +12,49 @@ rtabmap:
     approx_sync: true
     publish_tf: true
 
-    # --- CUDA (WYMUSZENIE GPU - HARD FAIL jeśli brak) ---
-    Vis/Gpu: "true"
-    Stereo/Gpu: "true"
-    Vis/CorNNType: "3"          # GPU brute-force matcher (wymusza CUDA)
+    Vis/Gpu: "false"
+    Stereo/Gpu: "false"
+    Vis/CorNNType: "3"
 
-    # --- ODOMETRIA (KLUCZOWE) ---
-    Reg/Strategy: "2"           # VisICP
-    Vis/EstimationType: "0"     # 3D-3D
-    Icp/Strategy: "1"           # point-to-plane
-    Icp/Iterations: "15"
+    Reg/Strategy: "0"
+    Vis/EstimationType: "0"
+    Icp/Strategy: "0"
+    subscribe_odom: true
 
     Odom/GuessMotion: "true"
     RGBD/UseIMU: "true"
 
-    # --- FEATURE EXTRACTION (POPRAWIONE) ---
-    Vis/FeatureType: "6"        # ORB (stabilniejsze niż GFTT/BRIEF)
-    Kp/MaxFeatures: "1200"
+    # ORB pipeline to match OpenCV build without xfeatures2d.
+    Vis/FeatureType: "8"
+    Kp/DetectorStrategy: "8"
+    Kp/MaxFeatures: "500"
 
-    # --- KEYFRAME CONTROL (DLA 1 m/s) ---
     RGBD/LinearUpdate: "0.05"
     RGBD/AngularUpdate: "0.03"
 
-    # --- LOOP CLOSURE / MAPA ---
+    RGBD/OptimizeFromGraphEnd: "false"
     Optimizer/Strategy: "1"
 
     RGBD/OptimizeMaxError: "3.0"
-    RGBD/ProximityBySpace: "true"
-    RGBD/ProximityMaxGraphDepth: "100"
+    RGBD/ProximityBySpace: "false"
+    RGBD/ProximityMaxGraphDepth: "20"
 
-    # --- PAMIĘĆ (POPRAWIONE) ---
-    Mem/STMSize: "40"
+    Mem/STMSize: "20"
+    Mem/UseOdomFeatures: "false"
+    Rtabmap/MemoryThr: "0"
     Mem/RehearsalSimilarity: "0.65"
 
-    # --- WIZJA (OUTDOOR STABILNOŚĆ) ---
     Vis/MinInliers: "20"
     Vis/InlierDistance: "0.1"
 
-    # --- GRID MAP (Nav2) ---
     Grid/Sensor: "1"
     Grid/CellSize: "0.05"
     Grid/MaxObstacleHeight: "1.5"
     Grid/MaxGroundHeight: "0.1"
-
     Grid/RangeMax: "4.0"
     Grid/RangeMin: "0.3"
-
     Grid/RayTracing: "true"
     Grid/DepthDecimation: "2"
 
-    # --- WYDAJNOŚĆ (POPRAWIONE) ---
     Rtabmap/DetectionRate: "1.0"
+    RGBD/NeighborLinkRefining: "false"

@@ -4,10 +4,9 @@ set -euo pipefail
 ROS_DISTRO="${ROS_DISTRO:-humble}"
 
 # NOTE:
-# - librealsense / rtabmap core / custom OpenCV are expected to be built from source
-#   in your Jetson setup flow.
-# - This script installs native APT/ROS dependencies required by slam
-#   and only stack-specific runtime packages (no duplicated ROS desktop/tooling).
+# - librealsense / rtabmap core / custom OpenCV / cv_bridge / realsense2-camera 
+#   are expected to be built from source in your Jetson setup flow to avoid OpenCV 4.5 conflicts.
+# - This script installs native APT/ROS dependencies required by slam.
 
 if ! command -v sudo >/dev/null 2>&1; then
   echo "sudo is required to install system packages"
@@ -27,13 +26,12 @@ sudo apt install -y \
   liboctomap-dev \
   libzip-dev \
   libgl1-mesa-dev \
-  libglu1-mesa-dev \
-  freeglut3-dev
-
-# Core ROS stack and tools not already covered by ros-humble-desktop.
+  libglu1-mesa-dev 
+# Core ROS stack and tools. 
+# USUNIĘTO: realsense2-camera (musi być budowane ze źródeł pod OpenCV 4.8)
+# DODANO: libg2o (wymagane przez rtabmap core)
 sudo apt install -y \
-  "ros-${ROS_DISTRO}-realsense2-camera" \
-  "ros-${ROS_DISTRO}-rtabmap-ros" \
+  "ros-${ROS_DISTRO}-libg2o" \
   "ros-${ROS_DISTRO}-imu-filter-madgwick" \
   "ros-${ROS_DISTRO}-robot-state-publisher" \
   "ros-${ROS_DISTRO}-tf2-tools" \
@@ -48,7 +46,7 @@ sudo apt install -y \
   "ros-${ROS_DISTRO}-rmw-zenoh-cpp"
 
 if [ ! -f /etc/ros/rosdep/sources.list.d/20-default.list ]; then
-  sudo rosdep init
+  sudo rosdep init || true
 fi
 rosdep update
 

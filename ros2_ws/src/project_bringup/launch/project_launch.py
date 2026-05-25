@@ -77,7 +77,7 @@ def launch_setup(context, *args, **kwargs):
         package="ultrasonic_driver",
         executable="collector",
         name="ultrasonic_collector",
-        output="screen",
+        output="log",
     )
 
     # Health check: wait for ultrasonic collector echo
@@ -89,7 +89,7 @@ def launch_setup(context, *args, **kwargs):
             "--once",
             "ultrasonic/echo",
         ],
-        output="screen",
+        output="log",
     )
 
     # Launch ultrasonic_driver monitor node (triggered after health check)
@@ -97,7 +97,7 @@ def launch_setup(context, *args, **kwargs):
         package="ultrasonic_driver",
         executable="monitor",
         name="ultrasonic_monitor",
-        output="screen",
+        output="log",
     )
 
     # Launch zones_manager node
@@ -105,7 +105,7 @@ def launch_setup(context, *args, **kwargs):
         package="zones_manager",
         executable="zones_manager",
         name="zones_manager",
-        output="screen",
+        output="log",
     )
 
     return [

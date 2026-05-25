@@ -2,7 +2,7 @@ stereo_odometry:
   ros__parameters:
     subscribe_imu: true
     subscribe_odom_info: true
-    subscribe_rgbd: true
+    subscribe_rgbd: false    # ← ZMIEŃ NA false
     approx_sync: true
 
     publish_tf: true

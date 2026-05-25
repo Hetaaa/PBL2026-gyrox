@@ -1,13 +1,10 @@
 #!/usr/bin/env bash
-set -euo pipefail
+# Zdejmujemy restrykcyjne flagi, które mogłyby ubić Twój główny terminal przy błędzie
+set +e
 
 WORKSPACE_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-ROS_DISTRO="${ROS_DISTRO:-humble}"
 
-set +u
-source "/opt/ros/${ROS_DISTRO}/setup.bash"
-set -u
-
+# Lista wymaganych paczek
 required_pkgs=(
   slam_bringup
   project_bringup
@@ -18,6 +15,7 @@ required_pkgs=(
   closest_element_info
 )
 
+# Sprawdzanie paczek (skorzysta dokładnie z tego, co masz w terminalu)
 missing_pkgs=()
 for pkg in "${required_pkgs[@]}"; do
   if ! ros2 pkg prefix "$pkg" >/dev/null 2>&1; then
@@ -28,16 +26,13 @@ done
 if (( ${#missing_pkgs[@]} > 0 )); then
   echo "Missing ROS packages: ${missing_pkgs[*]}"
   echo "Install native deps: bash scripts/install_native_deps.sh"
-  exit 1
+  # Używamy return zamiast exit, żeby nie zamknąć terminala użytkownika
+  if [[ "${BASH_SOURCE[0]}" != "${0}" ]]; then
+    return 1
+  else
+    exit 1
+  fi
 fi
 
-if [[ -f "${WORKSPACE_DIR}/ros2_ws/install/setup.bash" ]]; then
-  set +u
-  source "${WORKSPACE_DIR}/ros2_ws/install/setup.bash"
-  set -u
-else
-  echo "Build workspace first: cd ros2_ws && colcon build --symlink-install"
-  exit 1
-fi
-
-exec ros2 launch project_bringup project_launch.py "$@"
+# Odpalenie launchfile (BEZ exec, żeby nie ubić sesji terminala)
+ros2 launch slam_bringup slam_bringup_launch.py "$@"

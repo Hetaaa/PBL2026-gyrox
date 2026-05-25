@@ -1,5 +1,5 @@
 camera_defaults: &camera_defaults
-  depth_module.emitter_enabled: 0  # 0=OFF (outdoor default), 1=ON (indoor/overcast)
+  depth_module.emitter_enabled: 1  # 0=OFF (outdoor default), 1=ON (indoor/overcast)
 
   # [1] 848x480 — optymalna rozdzielczość dla D435/D435i/D455 wg Intel whitepaper
   # [2] 15fps — wystarczające dla łazika, stabilizuje temporal_filter

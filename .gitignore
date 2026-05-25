@@ -1,5 +1,28 @@
 .idea/
 **/__pycache__/
+
+# ROS2 workspace build directories
 ros2_ws/build
 ros2_ws/log
 ros2_ws/install
+
+# Build directories from submodules
+rtabmap/build
+rtabmap/CMakeCache.txt
+rtabmap/cmake_install.cmake
+setup/libs/rtabmap/build
+setup/libs/rtabmap/CMakeCache.txt
+setup/libs/rtabmap/cmake_install.cmake
+setup/libs/librealsense/build
+setup/libs/librealsense/CMakeCache.txt
+setup/libs/librealsense/cmake_install.cmake
+setup/hardware_config/jetson-orin-librealsense/build
+setup/hardware_config/jetson-orin-kernel-builder/build
+
+# Build files from submodules
+rtabmap/build/
+rtabmap/install/
+rtabmap/log/
+*/build/
+*/install/
+*/log/
